@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TaskManagerPro.Data;
 using TaskManagerPro.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace TaskManagerPro.Controllers
 {
+    [Authorize] // This protects all actions in the controller
     public class TaskItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -43,7 +46,9 @@ namespace TaskManagerPro.Controllers
             return View(taskItem);
         }
 
+
         // GET: TaskItems/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
